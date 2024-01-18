@@ -12,7 +12,7 @@ def Data_insert(collection, data):
     collection.delete_many({})
     collection.delete_many({})
     # 데이터 입력
-    collection.insert_many(data)           # hint(data->database)
+    collection.insert_many(data)           # hint(one->many)
 
 # 사용자 이름 입력 function
 def User_name(collection):
@@ -38,9 +38,9 @@ def Todos(user_id, collection1, collection2):
     print("")
 
     # todo중 하나 입력
-    user_input = int(input("Title 번호: "))-1           # hint
+    user_input = int(input("Title 번호: "))-1           # hint int로 변경
     # Status 입력
-    user_status = input("Status: ")          # hint
+    user_status = input("Status: ")          # hint int 제거
 
     # 사용자가 입력한 번호에 해당하는 title과 그 title id를 찾음
     result_todo_title = collection1.find().skip(user_input).limit(1)
@@ -52,8 +52,8 @@ def Todos(user_id, collection1, collection2):
     collection2.insert_one({"user_id" : user_id, "user_todo_id" : inserted_todo_id, "todo_title" : inserted_todo, "user_status" : user_status})
 
 # 종료 여부 입력 function
-def End(user_id,collection1, collection2):           # hint
-    user_end = input("진행 여부: ")  # hint
+def End(user_id,collection1, collection2):          # hint user_id 추가
+    user_end = input("진행 여부: ")  # hint  user_end == 'x':-> user_end = input("진행 여부: ") 
     while True:
         # c 입력 시 Todos() 다시 실행
         if user_end == "c":
